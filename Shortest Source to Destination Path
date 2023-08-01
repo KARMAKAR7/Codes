@@ -1,0 +1,28 @@
+class Solution {
+  public:
+    int shortestDistance(int n, int m, vector<vector<int>> a, int x, int y) {
+      if(a[0][0]==0) return 0 ;
+        vector<vector<int>>vis(n,vector<int>(m,0)) ;
+        queue<pair<pair<int,int> , int>> q ;
+        q.push({{0,0} , 0}) ;
+        vis[0][0] = 1 ;
+        int di[] = {0,0,1,-1} ;
+        int dj[] = {1,-1,0,0} ;
+        while(!q.empty()){
+            int row = q.front().first.first ;
+            int col = q.front().first.second ;
+            int dist = q.front().second ;
+            q.pop() ;
+            if(row==x and col ==y) return dist ;
+            for(int i=0;i<4;i++){
+                int nrow = row+ di[i] ;
+                int ncol = col+ dj[i] ;
+                if(nrow>=0 and nrow<n and ncol>=0 and ncol<m and a[nrow][ncol]!=0 and vis[nrow][ncol]==0){
+                    vis[nrow][ncol] = 1;
+                    q.push({{nrow,ncol} , dist+1}) ;
+                }
+            }
+        }
+        return -1 ;
+    }
+};
